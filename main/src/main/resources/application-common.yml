@@ -1,0 +1,19 @@
+spring:
+  tomcat:
+    basedir: ./tomcat
+    access-log-enabled: true
+    accesslog:
+      directory: ./access-log
+
+#########################
+mybatis:
+  mapperLocations: classpath:mappers/*Mapper.xml
+  typeAliasesPackage: com.eugene.sumarry.permission.model
+  configuration:
+    cacheEnabled: true
+    # 使用自带mybatis 打印日志不会输出在日志中
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+apilog:
+  logfolder:
+    folderPath: ${server.tomcat.basedir}/api-log

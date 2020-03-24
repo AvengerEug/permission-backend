@@ -1,0 +1,40 @@
+server:
+  port: 8891
+
+spring:
+  datasource:
+    url: jdbc:mysql://49.235.135.230:3306/permission?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
+    username: root
+    password: avengerEug
+    driverClassName: com.mysql.jdbc.Driver
+  redis:
+    database: 1
+    host: 49.235.135.230
+    port: 6379
+    password:
+    jedis:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: -1
+        # 连接池中的最小空闲连接
+        min-idle: 0
+        # 连接池中的最大空闲连接
+        max-idle: 8
+        #连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1
+    timeout: 6000
+  profiles:
+    include:
+    - common
+
+########################
+jwt:
+  header: jwt-token
+  cookie: jwt-token
+  type: jwt-type
+  # 24*60*60  一天内过期
+  expiration: 1296000000
+  refresh:
+    # 24*60*60*15
+    expiration: 1296000
+  secret: eugene
