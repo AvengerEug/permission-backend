@@ -3,7 +3,6 @@ package com.eugene.sumarry.jwtutil.model;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-@EnableConfigurationProperties
 @ConfigurationProperties(prefix = "jwt")
 public class JwtProperty {
 
