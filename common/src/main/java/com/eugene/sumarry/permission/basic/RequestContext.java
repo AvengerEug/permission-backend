@@ -72,4 +72,12 @@ public class RequestContext extends ConcurrentHashMap<String, Object> {
         return (HttpServletRequest) getAttribute("request");
     }
 
+    public static void saveCurrentId(Object currentId) {
+        setAttribute(Constants.USER_ID, currentId);
+    }
+
+    public static Object getCurrentId() {
+        return getAttribute(Constants.USER_ID);
+    }
+
 }

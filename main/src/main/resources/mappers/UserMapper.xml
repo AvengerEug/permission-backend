@@ -20,4 +20,11 @@
         FROM user
         WHERE user_name = #{userName} AND password = #{password}
     </select>
+
+    <select id="getAll" resultMap="userMap">
+        SELECT
+          <include refid="fields"/>
+        FROM user
+    </select>
+
 </mapper>

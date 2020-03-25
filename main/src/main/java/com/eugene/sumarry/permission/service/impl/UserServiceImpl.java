@@ -56,11 +56,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> fetchAllInfo() {
-        List<User> users = new ArrayList<User>();
-        for (int i = 0; i < 10; i++) {
-            users.add(new User(i, i + "", UUID.randomUUID().toString()));
-        }
-
-        return users;
+        return userDao.getAll();
     }
 }
