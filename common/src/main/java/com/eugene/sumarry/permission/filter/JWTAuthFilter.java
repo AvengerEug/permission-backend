@@ -59,7 +59,8 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 
         if (key != null) {
             Map<String, Object> map = (Map)info.get(key);
-            RequestContext.saveCurrentId(map.get(Constants.USER_ID));
+            Integer userId = (Integer)map.get(Constants.USER_ID);
+            RequestContext.saveCurrentId(userId.longValue());
         }
     }
 

@@ -13,4 +13,8 @@ public interface BaseDao<T, K> {
     T getById(K id);
 
     void delete(K id);
+
+    void batchInsert(List<T> list);
+
+    void batchDelete(List<K> list);
 }

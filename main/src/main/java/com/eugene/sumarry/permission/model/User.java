@@ -1,17 +1,20 @@
 package com.eugene.sumarry.permission.model;
 
-public class User {
+import java.util.List;
 
-    private Integer userId;
+public class User extends BaseModel {
+
+    private Long userId;
     private String userName;
     private String password;
 
+    private List<UserRole> userRoles;
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -34,9 +37,11 @@ public class User {
     public User() {
     }
 
-    public User(Integer userId, String userName, String password) {
-        this.userId = userId;
-        this.userName = userName;
-        this.password = password;
+    public List<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(List<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 }

@@ -1,9 +1,11 @@
 package com.eugene.sumarry.permission.basic;
 
+import org.apache.catalina.connector.Response;
+
 public class Message {
 
-    public final static Integer OK = 200;
-    private final static Integer ERROR = 500;
+    public final static Integer OK = Response.SC_OK;
+    private final static Integer ERROR = Response.SC_INTERNAL_SERVER_ERROR;
     private final static Integer BAD_REQUEST = 400;
 
     private Integer statusCode;

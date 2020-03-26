@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 命名空间为MapperScan注解指定的扫描路径 + 接口名 -->
+<mapper namespace="com.eugene.sumarry.permission.dao.UserRoleDao">
+
+    <cache type="com.eugene.sumarry.permission.basic.MyBatisRedisCache"/>
+
+    <resultMap type="UserRole" id="userRoleMap">
+        <id column="user_role_id" property="userRoleId"/>
+        <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="role_id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+    </resultMap>
+
+
+    <resultMap id="userRoleCascadeMap" type="UserRole" extends="userRoleMap">
+        <association column="role_Id" property="role" select="getRoleById"/>
+    </resultMap>
+
+    <sql id="fields">
+        user_role_id, user_id, user_name, role_id, role_name
+    </sql>
+
+    <resultMap id="roleMap" type="Role">
+        <id column="role_id" property="roleId" />
+        <result column="role_name" property="roleName" />
+
+        <collection column="role_id" property="rolePermissions" select="findRolePermission"/>
+    </resultMap>
+
+    <select id="getRoleById" parameterType="long" resultMap="roleMap">
+        SELECT
+            *
+        FROM role
+        WHERE role_id = #{roleId}
+    </select>
+
+    <select id="findUserRoleByUserId" parameterType="long" resultMap="userRoleCascadeMap" useCache="false">
+        SELECT
+            *
+        FROM user_role
+        WHERE user_id = #{userId}
+    </select>
+
+    <resultMap id="rolePermissionMap" type="RolePermission">
+        <id column="role_permission_id" property="rolePermissionId" />
+        <result column="role_id" property="roleId" />
+        <result column="role_ame" property="roleName" />
+        <result column="permission_id" property="permissionId" />
+
+        <association column="permission_id" property="permission" select="getPermissionById"/>
+    </resultMap>
+
+    <select id="findRolePermission" parameterType="long" resultMap="rolePermissionMap">
+        SELECT
+            *
+        FROM role_permission
+        WHERE role_id = #{roleId}
+    </select>
+
+    <resultMap id="permissionMap" type="Permission">
+        <id column="permission_id" property="permissionId" />
+        <result column="permission_name" property="permissionName" />
+        <result column="permission_direction" property="permissionDirection" typeHandler="com.eugene.sumarry.permission.typehandler.PermissionDirectionTypeHandler"/>
+        <result column="parent_permission_id" property="parentPermissionId" />
+        <result column="permission_type" property="permissionType" typeHandler="com.eugene.sumarry.permission.typehandler.PermissionTypeTypeHandler"/>
+        <result column="permission_key" property="permissionKey" />
+    </resultMap>
+
+    <select id="getPermissionById" parameterType="long" resultMap="permissionMap">
+        SELECT
+          *
+        FROM permission
+        WHERE permission_id = #{permissionId}
+    </select>
+
+
+    <select id="findUserRole" parameterType="long" resultMap="userRoleCascadeMap">
+        SELECT
+            *
+        FROM user_role
+    </select>
+
+
+    <delete id="deleteByUserId" parameterType="list" flushCache="true">
+        DELETE FROM user_role WHERE user_id = #{userId}
+    </delete>
+
+</mapper>

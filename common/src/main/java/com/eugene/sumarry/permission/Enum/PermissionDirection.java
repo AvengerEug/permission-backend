@@ -1,4 +1,4 @@
-package com.eugene.sumarry.jwtutil.Enum;
+package com.eugene.sumarry.permission.Enum;
 
 public enum PermissionDirection implements BaseEnum {
 
@@ -16,7 +16,7 @@ public enum PermissionDirection implements BaseEnum {
         return this.value;
     }
 
-    public static PermissionDirection valueOf(int value) {
+    public static PermissionDirection int2Enum(int value) {
         PermissionDirection[] permissionDirections = PermissionDirection.values();
         for (PermissionDirection permissionDirection : permissionDirections) {
             if (permissionDirection.getValue() == value) return permissionDirection;
