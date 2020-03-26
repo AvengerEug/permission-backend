@@ -1,4 +1,4 @@
-package com.eugene.sumarry.jwtutil.Enum;
+package com.eugene.sumarry.permission.Enum;
 
 public interface BaseEnum {
 

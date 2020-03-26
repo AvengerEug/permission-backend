@@ -2,7 +2,6 @@ package com.eugene.sumarry.jwtutil.processor;
 
 import com.eugene.sumarry.jwtutil.anno.EnableJwtSign;
 import com.eugene.sumarry.jwtutil.entry.JwtSign;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.GenericBeanDefinition;

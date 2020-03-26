@@ -7,12 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * 请求上下文, 内部维护了一个threadLocal
- *
- * 一个请求进来, 首先调用getCurrentContext方法获取上下文
- * 获取到当前线程的请求上下文, 再调用addAttribute方法存储request和response
- */
 public class RequestContext extends ConcurrentHashMap<String, Object> {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestContext.class);
@@ -44,10 +38,10 @@ public class RequestContext extends ConcurrentHashMap<String, Object> {
     private static class Hodler {
         ;
         
-        private static RequestContext requstContext = new RequestContext();
+        private static RequestContext requestContext = new RequestContext();
 
         public static RequestContext getInstance() {
-            return requstContext;
+            return requestContext;
         }
     }
 
@@ -60,8 +54,8 @@ public class RequestContext extends ConcurrentHashMap<String, Object> {
     }
 
     public static void initHttpServletRequestContext(HttpServletRequest request, HttpServletResponse response) {
-        setAttribute("request", request);
-        setAttribute("response", response);
+        setAttribute(Constants.REQUEST, request);
+        setAttribute(Constants.RESPONSE, response);
     }
 
     public static Object getHttpServletRequestParam(String param) {
@@ -69,7 +63,7 @@ public class RequestContext extends ConcurrentHashMap<String, Object> {
     }
 
     public static HttpServletRequest getHttpServletRequest() {
-        return (HttpServletRequest) getAttribute("request");
+        return (HttpServletRequest) getAttribute(Constants.REQUEST);
     }
 
     public static void saveCurrentId(Object currentId) {

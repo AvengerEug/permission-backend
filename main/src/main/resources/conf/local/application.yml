@@ -38,13 +38,3 @@ jwt:
     # 24*60*60*15
     expiration: 1296000
   secret: eugene
-
-mybatis:
-  mapperLocations: classpath:mappers/*Mapper.xml
-  typeAliasesPackage: com.eugene.sumarry.permission.model
-  configuration:
-    cacheEnabled: true
-    # mybatis内部使用logImpl的对象来接收日志的实现类, 若配置了此内容
-    # mybatis则会采用自带的方式生成日志, 配置了logback后，则会采用logback
-    # 生成日志，因为logback也是logImpl类型的实现类
-    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
