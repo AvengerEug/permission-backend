@@ -23,6 +23,7 @@ public class UserController extends BaseController {
         return Message.ok(jwtToken);
     }
 
+    @AuthApiPerm
     @GetMapping(value = "/fetch-all-info")
     public Message fetchAllInfo() {
         return Message.ok(userService.fetchAllInfo());

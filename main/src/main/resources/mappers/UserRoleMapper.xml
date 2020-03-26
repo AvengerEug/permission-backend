@@ -77,15 +77,26 @@
     </select>
 
 
-    <select id="findUserRole" parameterType="long" resultMap="userRoleCascadeMap">
+    <select id="getAll" parameterType="long" resultMap="userRoleCascadeMap">
         SELECT
             *
         FROM user_role
     </select>
 
-
     <delete id="deleteByUserId" parameterType="list" flushCache="true">
         DELETE FROM user_role WHERE user_id = #{userId}
     </delete>
+
+    <insert id="batchInsert" parameterType="list" flushCache="false">
+        INSERT INTO
+            user_role(user_id, user_name, role_id, role_name)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.userId},
+            #{item.userName},
+            #{item.roleId},
+            #{item.roleName})
+        </foreach>
+    </insert>
 
 </mapper>

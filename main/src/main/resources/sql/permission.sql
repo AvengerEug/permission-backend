@@ -83,3 +83,26 @@ INSERT INTO user_role(user_id, user_name, role_id, role_name)
 VALUES
 ((SELECT user_id FROM user WHERE user_name = "eugene2"), "eugene2", (SELECT role_id FROM role WHERE role_name = "测试人员"), "测试人员");
 
+
+/**
+  2020-03-26 新增两个api，添加权限并赋值给管理员角色
+ */
+-- 新增两个api的权限
+INSERT INTO permission(
+permission_name,
+permission_direction,
+parent_permission_id,
+permission_type,
+permission_key)
+VALUES
+("删除用户角色", 0, null, 1, "UserRoleController#deleteUserRole"),
+("更新用户角色", 0, null, 1, "UserRoleController#updateUserRole");
+
+-- 将权限赋值给admin
+INSERT INTO role_permission(role_id, role_name, permission_id)
+VALUES
+((SELECT role_id FROM role WHERE role_name = "管理员"), "管理员", (SELECT permission_id FROM permission WHERE permission_key = "UserRoleController#deleteUserRole"));
+
+INSERT INTO role_permission(role_id, role_name, permission_id)
+VALUES
+((SELECT role_id FROM role WHERE role_name = "管理员"), "管理员", (SELECT permission_id FROM permission WHERE permission_key = "UserRoleController#updateUserRole"));

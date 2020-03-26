@@ -9,4 +9,8 @@ public interface UserRoleService {
     List<UserRole> fetchUserRoles(Long userId);
 
     void deleteUserRoles(Long userId);
+
+    List<UserRole> findAll();
+
+    void updateUserRole(List<UserRole> userRoleList, Long updatedTarget);
 }
