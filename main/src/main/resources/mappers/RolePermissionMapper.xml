@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 命名空间为MapperScan注解指定的扫描路径 + 接口名 -->
+<mapper namespace="com.eugene.sumarry.permission.dao.RolePermissionDao">
+
+    <resultMap id="rolePermissionMap" type="RolePermission">
+        <id column="role_permission_id" property="rolePermissionId" />
+        <result column="role_id" property="roleId" />
+        <result column="role_name" property="roleName" />
+        <result column="permission_id" property="permissionId" />
+
+    </resultMap>
+
+    <sql id="fields">
+        role_permission_id, role_id, role_name, permission_id
+    </sql>
+
+    <insert id="insert" parameterType="RolePermission" useGeneratedKeys="true" keyProperty="rolePermissionId">
+        INSERT INTO
+            role_permission
+            (
+              role_id,
+              role_name,
+              permission_id
+            )
+        VALUES
+            (
+              #{roleId},
+              #{roleName},
+              #{permissionId}
+            )
+    </insert>
+
+    <insert id="batchInsert" parameterType="list" flushCache="false" useGeneratedKeys="true" keyProperty="rolePermissionId">
+        INSERT INTO
+            role_permission
+            (
+                role_id,
+                role_name,
+                permission_id
+            )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.roleId},
+                #{item.roleName},
+                #{item.permissionId}
+            )
+        </foreach>
+    </insert>
+
+
+</mapper>

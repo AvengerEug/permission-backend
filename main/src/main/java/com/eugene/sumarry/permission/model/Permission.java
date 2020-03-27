@@ -3,6 +3,8 @@ package com.eugene.sumarry.permission.model;
 import com.eugene.sumarry.permission.Enum.PermissionDirection;
 import com.eugene.sumarry.permission.Enum.PermissionType;
 
+import javax.validation.constraints.NotBlank;
+
 public class Permission extends BaseModel {
 
     private Long permissionId;
@@ -10,6 +12,8 @@ public class Permission extends BaseModel {
     private PermissionDirection permissionDirection;
     private Long parentPermissionId;
     private PermissionType permissionType;
+
+    @NotBlank
     private String permissionKey;
 
     public Long getPermissionId() {

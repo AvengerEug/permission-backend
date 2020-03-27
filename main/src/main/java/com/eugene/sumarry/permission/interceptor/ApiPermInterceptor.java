@@ -1,5 +1,6 @@
 package com.eugene.sumarry.permission.interceptor;
 
+import com.eugene.sumarry.permission.Enum.HttpErrorStatus;
 import com.eugene.sumarry.permission.anno.AuthApiPerm;
 import com.eugene.sumarry.permission.basic.RequestContext;
 import com.eugene.sumarry.permission.dao.UserRoleDao;
@@ -8,6 +9,7 @@ import com.eugene.sumarry.permission.model.Permission;
 import com.eugene.sumarry.permission.model.RolePermission;
 import com.eugene.sumarry.permission.model.UserRole;
 import com.eugene.sumarry.permission.service.UserRoleService;
+import com.eugene.sumarry.permission.utils.Assert;
 import com.eugene.sumarry.permission.utils.PermissionUtil;
 import com.eugene.sumarry.permission.utils.SpringContextHolder;
 import org.apache.catalina.connector.Response;
@@ -68,7 +70,9 @@ public class ApiPermInterceptor implements HandlerInterceptor {
                             handlerResponse(response);
                             // 此处抛出运行时异常是因为PermissionUtil的traversal方法的设计。
                             // 若不喜欢此方法的设计，不使用它
-                            throw new RuntimeException("无权限访问此api");
+                            Assert.stopProcess(
+                                    HttpErrorStatus.NOT_ACCESS_API_PERMISSION.getCode(),
+                                    HttpErrorStatus.NOT_ACCESS_API_PERMISSION.getMessage());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -81,7 +85,7 @@ public class ApiPermInterceptor implements HandlerInterceptor {
     }
     
     private void handlerResponse(HttpServletResponse response) throws IOException {
-        response.sendError(Response.SC_FORBIDDEN, "No permission access this api");
+        response.sendError(Response.SC_FORBIDDEN);
     }
 
     private String getCurrentClassName(HandlerMethod handlerMethod) {

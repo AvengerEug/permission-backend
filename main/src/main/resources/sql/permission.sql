@@ -106,3 +106,48 @@ VALUES
 INSERT INTO role_permission(role_id, role_name, permission_id)
 VALUES
 ((SELECT role_id FROM role WHERE role_name = "管理员"), "管理员", (SELECT permission_id FROM permission WHERE permission_key = "UserRoleController#updateUserRole"));
+
+/**
+  2020-03-27
+  PermissionController.java 新增了
+  create和batchCreate方法
+
+  RoleController.java新增了
+  create和batchCreate方法
+
+  UserRoleController.java新增了
+  addUserRoles方法
+ */
+INSERT INTO permission(
+permission_name,
+permission_direction,
+parent_permission_id,
+permission_type,
+permission_key)
+VALUES
+("新增权限", 0, null, 1, "PermissionController#create"),
+("批量新增权限", 0, null, 1, "PermissionController#batchCreate"),
+("新增角色", 0, null, 1, "RoleController#create"),
+("批量新增角色", 0, null, 1, "RoleController#batchCreate"),
+("新增用户角色", 0, null, 1, "UserRoleController#addUserRoles");
+
+-- 将权限赋值给admin
+INSERT INTO role_permission(role_id, role_name, permission_id)
+VALUES
+((SELECT role_id FROM role WHERE role_name = "管理员"), "管理员", (SELECT permission_id FROM permission WHERE permission_key = "PermissionController#create"));
+
+INSERT INTO role_permission(role_id, role_name, permission_id)
+VALUES
+((SELECT role_id FROM role WHERE role_name = "管理员"), "管理员", (SELECT permission_id FROM permission WHERE permission_key = "PermissionController#batchCreate"));
+
+INSERT INTO role_permission(role_id, role_name, permission_id)
+VALUES
+((SELECT role_id FROM role WHERE role_name = "管理员"), "管理员", (SELECT permission_id FROM permission WHERE permission_key = "RoleController#create"));
+
+INSERT INTO role_permission(role_id, role_name, permission_id)
+VALUES
+((SELECT role_id FROM role WHERE role_name = "管理员"), "管理员", (SELECT permission_id FROM permission WHERE permission_key = "RoleController#batchCreate"));
+
+INSERT INTO role_permission(role_id, role_name, permission_id)
+VALUES
+((SELECT role_id FROM role WHERE role_name = "管理员"), "管理员", (SELECT permission_id FROM permission WHERE permission_key = "UserRoleController#addUserRoles"));

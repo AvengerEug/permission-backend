@@ -28,7 +28,17 @@ public class UserRoleController extends BaseController {
     public Message updateUserRole(
             @RequestBody List<UserRole> userRoleList,
             @PathVariable("updatedTarget") Long updatedTarget) {
-        userRoleService.updateUserRole(userRoleList, updatedTarget);
+        userRoleService.updateUserRoles(userRoleList, updatedTarget);
+        return Message.ok();
+    }
+
+    @AuthApiPerm
+    @PostMapping("/{addedTarget}")
+    public Message addUserRoles(
+            @RequestBody List<UserRole> userRoles,
+            @PathVariable("addedTarget") Long addedTarget) {
+
+        userRoleService.addUserRoles(userRoles, addedTarget);
         return Message.ok();
     }
 }
