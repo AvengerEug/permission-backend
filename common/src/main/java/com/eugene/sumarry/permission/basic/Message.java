@@ -6,7 +6,7 @@ public class Message {
 
     public final static Integer OK = Response.SC_OK;
     private final static Integer ERROR = Response.SC_INTERNAL_SERVER_ERROR;
-    private final static Integer BAD_REQUEST = 400;
+    private final static Integer BAD_REQUEST = Response.SC_BAD_REQUEST;
 
     private Integer statusCode;
 
@@ -39,11 +39,16 @@ public class Message {
         }
     }
 
-    private static class ErrorMessage extends  Message {
+    private static class ErrorMessage extends Message {
         private String errorMessage;
 
         public ErrorMessage(String errorMessage) {
             super.statusCode = ERROR;
+            this.errorMessage = errorMessage;
+        }
+
+        public ErrorMessage(Integer code, String errorMessage) {
+            super.statusCode = code;
             this.errorMessage = errorMessage;
         }
 
@@ -67,5 +72,10 @@ public class Message {
     public static Message error(String message) {
         return new ErrorMessage(message);
     }
+
+    public static Message bad(String errorMessage) {
+        return new ErrorMessage(BAD_REQUEST, errorMessage);
+    }
+
 
 }

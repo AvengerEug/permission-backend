@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 命名空间为MapperScan注解指定的扫描路径 + 接口名 -->
+<mapper namespace="com.eugene.sumarry.permission.dao.PermissionDao">
+
+    <resultMap id="permissionMap" type="Permission">
+        <id column="permission_id" property="permissionId" />
+        <result column="permission_name" property="permissionName" />
+        <result column="permission_direction" property="permissionDirection" typeHandler="com.eugene.sumarry.permission.typehandler.PermissionDirectionTypeHandler"/>
+        <result column="parent_permission_id" property="parentPermissionId" />
+        <result column="permission_type" property="permissionType" typeHandler="com.eugene.sumarry.permission.typehandler.PermissionTypeTypeHandler"/>
+        <result column="permission_key" property="permissionKey" />
+    </resultMap>
+
+    <sql id="fields">
+        permission_id, permission_name, permission_direction, parent_permission_id, permission_type, permission_key
+    </sql>
+
+    <select id="getById" parameterType="long" resultMap="permissionMap">
+        SELECT
+            <include refid="fields"/>
+        FROM
+            permission
+        WHERE
+           permission_id = #{permissionId}
+    </select>
+
+    <select id="insert" parameterType="Permission" resultMap="permissionMap">
+        INSERT INTO
+            permission
+            (
+                permission_name,
+                permission_direction,
+                parent_permission_id,
+                permission_type,
+                permission_key
+            )
+        VALUES
+            (
+                #{permissionName},
+                #{permissionDirection, typeHandler=com.eugene.sumarry.permission.typehandler.PermissionDirectionTypeHandler},
+                #{parentPermissionId},
+                #{permissionType, typeHandler=com.eugene.sumarry.permission.typehandler.PermissionTypeTypeHandler},
+                #{permissionKey}
+            )
+    </select>
+
+    <insert id="batchInsert" parameterType="list" flushCache="false">
+        INSERT INTO
+            permission
+            (
+                permission_name,
+                permission_direction,
+                parent_permission_id,
+                permission_type,
+                permission_key
+            )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.permissionName},
+                #{item.permissionDirection, typeHandler=com.eugene.sumarry.permission.typehandler.PermissionDirectionTypeHandler},
+                #{item.parentPermissionId},
+                #{item.permissionType, typeHandler=com.eugene.sumarry.permission.typehandler.PermissionTypeTypeHandler},
+                #{item.permissionKey}
+            )
+        </foreach>
+    </insert>
+
+    <select id="getByKey" parameterType="string" resultMap="permissionMap">
+        SELECT
+            <include refid="fields"/>
+        FROM
+            permission
+        WHERE
+            permission_key = #{permissionKey}
+    </select>
+
+</mapper>

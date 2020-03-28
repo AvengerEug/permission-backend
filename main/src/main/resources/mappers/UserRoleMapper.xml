@@ -47,7 +47,7 @@
     <resultMap id="rolePermissionMap" type="RolePermission">
         <id column="role_permission_id" property="rolePermissionId" />
         <result column="role_id" property="roleId" />
-        <result column="role_ame" property="roleName" />
+        <result column="role_name" property="roleName" />
         <result column="permission_id" property="permissionId" />
 
         <association column="permission_id" property="permission" select="getPermissionById"/>
@@ -79,7 +79,7 @@
 
     <select id="getAll" parameterType="long" resultMap="userRoleCascadeMap">
         SELECT
-            *
+            <include refid="fields"/>
         FROM user_role
     </select>
 

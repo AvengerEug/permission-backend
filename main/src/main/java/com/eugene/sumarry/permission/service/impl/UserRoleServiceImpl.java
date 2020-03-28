@@ -2,13 +2,8 @@ package com.eugene.sumarry.permission.service.impl;
 
 import com.eugene.sumarry.permission.anno.ExceptionTransactional;
 import com.eugene.sumarry.permission.dao.UserRoleDao;
-import com.eugene.sumarry.permission.model.RolePermission;
 import com.eugene.sumarry.permission.model.UserRole;
 import com.eugene.sumarry.permission.service.UserRoleService;
-import com.eugene.sumarry.permission.utils.PermissionUtil;
-import org.apache.commons.lang.ObjectUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,8 +32,15 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     @ExceptionTransactional
-    public void updateUserRole(List<UserRole> userRoleList, Long updatedTarget) {
+    public void updateUserRoles(List<UserRole> userRoleList, Long updatedTarget) {
         userRoleDao.deleteByUserId(updatedTarget);
         userRoleDao.batchInsert(userRoleList);
     }
+
+    @Override
+    public void addUserRoles(List<UserRole> userRoles, Long addedTarget) {
+        // 允许有多个同样的角色, 允许这样的操作
+        userRoleDao.batchInsert(userRoles);
+    }
+
 }

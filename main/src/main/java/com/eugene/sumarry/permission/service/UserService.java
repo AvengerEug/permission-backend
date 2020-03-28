@@ -5,7 +5,7 @@ import com.eugene.sumarry.permission.model.User;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends BaseService<User, Long> {
 
     String login(String userName, String password) throws BusinessException;
 

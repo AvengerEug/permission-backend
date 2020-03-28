@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface BaseDao<T, K> {
 
-    T create(T entity);
+    void insert(T entity);
 
     T update(T entity);
 

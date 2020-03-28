@@ -7,22 +7,14 @@ import com.eugene.sumarry.permission.dao.UserDao;
 import com.eugene.sumarry.permission.model.User;
 import com.eugene.sumarry.permission.service.UserService;
 import com.eugene.sumarry.permission.utils.RedisUtil;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
 
-
-    @Autowired
-    private JwtProperty jwtProperty;
 
     @Autowired
     private UserDao userDao;

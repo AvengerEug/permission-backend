@@ -4,7 +4,7 @@ import com.eugene.sumarry.permission.model.UserRole;
 
 import java.util.List;
 
-public interface UserRoleService {
+public interface UserRoleService extends BaseService<UserRole, Long> {
 
     List<UserRole> fetchUserRoles(Long userId);
 
@@ -12,5 +12,7 @@ public interface UserRoleService {
 
     List<UserRole> findAll();
 
-    void updateUserRole(List<UserRole> userRoleList, Long updatedTarget);
+    void updateUserRoles(List<UserRole> userRoleList, Long updatedTarget);
+
+    void addUserRoles(List<UserRole> userRoles, Long addedTarget);
 }

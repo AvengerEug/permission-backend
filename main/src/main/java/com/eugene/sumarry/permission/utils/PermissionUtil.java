@@ -1,8 +1,10 @@
 package com.eugene.sumarry.permission.utils;
 
 import com.eugene.sumarry.permission.model.Permission;
+import com.eugene.sumarry.permission.model.Role;
 import com.eugene.sumarry.permission.model.RolePermission;
 import com.eugene.sumarry.permission.model.UserRole;
+import com.eugene.sumarry.permission.service.RoleService;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
@@ -40,5 +42,27 @@ public final class PermissionUtil {
 
         return permissions;
     }
+
+
+    public static <T> void traversal(
+            List<T> lists,
+            Consumer<T> tConsumer) {
+        if (CollectionUtils.isEmpty(lists)) {
+            return;
+        }
+
+        for (T t : lists) {
+            tConsumer.accept(t);
+        }
+    }
+
+    public static void validate(Role role, Consumer<Role> roleConsumer) {
+        if (ObjectUtils.isEmpty(role)) {
+            return;
+        }
+
+        roleConsumer.accept(role);
+    }
+
 
 }
